@@ -21,7 +21,7 @@ resource "yandex_mdb_mysql_cluster" "my_sql" {
   }
 
   backup_retain_period_days = 7
-  deletion_protection       = false #изменить перед сдачей, изменено для возможности тестирования
+  deletion_protection       = true
 
   backup_window_start {
     hours   = 23

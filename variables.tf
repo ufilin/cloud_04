@@ -14,18 +14,23 @@ variable "vms_resources" {
     cores         = number
     memory        = number
     core_fraction = number
+    boot_disk = object({
+      type = string
+      size = number
+    })
   })
 
   default = {
     cores         = 2
     memory        = 2
-    core_fraction = 20
+    core_fraction = 50
+    boot_disk = {
+      type = "network-hdd"
+      size = 20
+    }
   }
 }
-variable "service_account_id" {
-  type        = string
-  description = "Service account ID for Yandex Cloud"
-}
+
 
 variable "private_subnets" {
   type = map(object({
@@ -57,4 +62,16 @@ variable "db_password" {
   type        = string
   description = "Password for the MySQL database user"
   sensitive   = true
+}
+
+variable "role" {
+  type        = list(string)
+  description = "List of IAM roles for the service account"
+  default = [
+    "container-registry.images.puller",
+    "kms.keys.encrypterDecrypter",
+    "load-balancer.admin",
+    "k8s.clusters.agent",
+    "vpc.publicAdmin"
+  ]
 }

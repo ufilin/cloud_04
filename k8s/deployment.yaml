@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-ufilin-netology
+  labels:
+    app: php
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: php
+  template:
+    metadata:
+      labels:
+        app: php
+    spec:
+      containers:
+      - name: php
+        image: phpmyadmin:5.2.3
+        ports:
+        - containerPort: 80
+        env:
+          - name: PMA_HOST
+            value: #input после apply
